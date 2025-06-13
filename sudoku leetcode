@@ -1,0 +1,61 @@
+class Solution {
+    final int max=9;
+    char[][]board;
+    public void solveSudoku(char[][] board) {
+        this.board=board;
+        helper(0,0); 
+    }
+
+        
+boolean isok(int row,int col,char digit){
+     for(int i=0;i<max;i++){
+        if(board[row][i]==digit){
+            return false;
+        }
+        
+    }
+    for(int i=0;i<max;i++){
+        if(board[i][col]==digit){
+            return false;
+        }
+    }
+    int start = row - row % 3;
+    int colstart =col - col % 3;
+    for(int i =start;i<start+3;i++){
+        for(int j=colstart;j<colstart+3;j++){
+            if(board[i][j]==digit){
+                return false;
+            }
+        }
+        
+    }
+    return true;
+    
+}
+  boolean helper(int row ,int col){
+
+     if(col==max){
+        row = row+1;
+        col =0;   
+     }
+     if(row==max)
+     {
+      return true; 
+      }
+      if(board[row][col]!='.'){
+        return helper(row,col+1);
+      }
+     for(int i =1 ;i<=max;i++){
+            if(isok(row,col,(char)(i+'0'))){
+                board[row][col]=(char)(i+'0');
+                boolean result=helper(row,col+1);
+                if(result){
+                    return true;
+                }
+                board[row][col]='.';
+            }     
+        }
+ return false;
+}
+
+}
