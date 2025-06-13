@@ -1,0 +1,30 @@
+class Solution {
+    String [] combinations={"","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+    public List<String> letterCombinations(String digits) {
+    if(digits.length()==0){
+        return new ArrayList<String>();
+    }
+    else{
+        return helper(digits);
+    }
+    
+    }
+    public List<String> helper(String digits) {
+        if(digits.length()==0){
+            List<String>list=new ArrayList<String>();
+            list.add("");
+            return list;
+        }
+        List<String>newlist=new ArrayList<String>();
+        int value=digits.charAt(0) -'0';
+        String str = combinations[value];
+        for(int i = 0;i<str.length();i++){
+            List<String>oldlist=helper(digits.substring(1));
+            for(int j =0;j<oldlist.size();j++){
+                newlist.add(str.charAt(i)+oldlist.get(j));
+            }
+            
+        }
+        return newlist;
+    }
+}
