@@ -1,0 +1,37 @@
+class Solution {
+    public int minEatingSpeed(int[] piles, int h) {
+     Arrays.sort(piles);
+     int result=0;
+     long low=1;
+     long ho=(long)(h);
+     long high=piles[piles.length-1];
+     while(low<=high){
+        long mid=low+(high-low)/2;
+        if(isok(piles,mid,ho)){
+            result=(int)(mid);
+            high=mid-1;
+        }
+        else {
+            low=mid+1;
+        }
+        
+     }
+     return result;
+     
+       
+    }
+
+   boolean isok(int temp[],long value,long hour){
+    long count =0;
+   
+   for(int i :temp){
+    count = count+(i+value-1)/value;
+   
+   }
+
+return count<=hour;
+}
+
+    
+
+}
